@@ -4,7 +4,6 @@ import os
 # import tensorflow as tf
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 # import tensorflow as tf
-#np.random.seed(0)
 
 
 class xorMLP(object):
