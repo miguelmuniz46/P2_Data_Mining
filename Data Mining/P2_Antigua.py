@@ -4,6 +4,11 @@ from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+<<<<<<< HEAD
+=======
+# import tensorflow as tf
+
+>>>>>>> 14308e88f0b735b4721b3b9eae5f54aa774680a0
 
 class xorMLP(object):
     def __init__(self, learning_rate=0.):
@@ -230,6 +235,7 @@ if __name__ == '__main__':
         print("Y:", Y[i])
         res = red.predict(x)
         print("Y de la red: ", res)
+<<<<<<< HEAD
         print("Y esperada: ", round(res[0], 0))
 
     # TODO MNIST TESTS
@@ -240,3 +246,6 @@ if __name__ == '__main__':
     X_test = mnist.test.images
     Y_test = mnist.test.labels
     deepmlp.score(X_test, Y_test)
+=======
+        print("Y esperada: " , round(res[0], 0))
+>>>>>>> 14308e88f0b735b4721b3b9eae5f54aa774680a0
