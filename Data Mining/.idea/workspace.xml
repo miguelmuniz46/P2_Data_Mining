@@ -10,23 +10,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="P2.JAVIER_GUILLAMON-MARINO_PEREZ.ipynb" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/P2.JAVIER_GUILLAMON-MARINO_PEREZ.ipynb">
-          <provider selected="true" editor-type-id="ipnb-editor">
-            <state>
-              <selected id="0" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="P2_Antigua.py" pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="P2_Antigua.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/P2_Antigua.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="878">
-              <caret line="164" column="38" lean-forward="true" selection-start-line="164" selection-start-column="38" selection-end-line="164" selection-end-column="38" />
+            <state relative-caret-position="537">
+              <caret line="207" column="89" lean-forward="true" selection-start-line="207" selection-start-column="89" selection-end-line="207" selection-end-column="89" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#181#6968#0" />
               </folding>
             </state>
           </provider>
@@ -35,10 +27,11 @@
       <file leaf-file-name="P2.Sergio_Blanco-Miguel_Muñiz.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/P2_DM_red_neuronal-master/P2.Sergio_Blanco-Miguel_Muñiz.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2159">
-              <caret line="199" column="18" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="18" />
+            <state relative-caret-position="731">
+              <caret line="212" column="20" lean-forward="true" selection-start-line="212" selection-start-column="20" selection-end-line="212" selection-end-column="43" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#164#6520#0" />
               </folding>
             </state>
           </provider>
@@ -56,8 +49,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/P2_Antigua.py" />
+        <option value="$PROJECT_DIR$/P2.JAVIER_GUILLAMON-MARINO_PEREZ.ipynb" />
         <option value="$PROJECT_DIR$/P2_DM_red_neuronal-master/P2.Sergio_Blanco-Miguel_Muñiz.py" />
+        <option value="$PROJECT_DIR$/P2_Antigua.py" />
       </list>
     </option>
   </component>
@@ -72,6 +66,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -88,7 +83,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -106,7 +100,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.P2.Sergio_Blanco-Miguel_Muñiz">
+  <component name="RunManager" selected="Python.P2_Antigua">
     <configuration name="P2_Antigua" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Data Mining" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -149,8 +143,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.P2.Sergio_Blanco-Miguel_Muñiz" />
         <item itemvalue="Python.P2_Antigua" />
+        <item itemvalue="Python.P2.Sergio_Blanco-Miguel_Muñiz" />
       </list>
     </recent_temporary>
   </component>
@@ -170,25 +164,25 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19284295" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19602385" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="R Packages" />
-      <window_info anchor="right" id="R Graphics" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3299611" />
-      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Python Console" />
+      <window_info anchor="right" id="R Packages" order="4" />
+      <window_info anchor="right" id="R Graphics" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005964" side_tool="true" weight="0.24784988" />
+      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="8" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49940357" weight="0.24784988" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" weight="0.22568093" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.22568093" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -196,26 +190,28 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/P2_DM_red_neuronal-master/P2.Sergio_Blanco-Miguel_Muñiz.py">
+    <entry file="file://$PROJECT_DIR$/P2_Antigua.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2159">
-          <caret line="199" column="18" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="18" />
+        <state relative-caret-position="3196">
+          <caret line="191" column="73" lean-forward="true" selection-start-line="191" selection-start-column="73" selection-end-line="191" selection-end-column="73" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#181#6968#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/P2_Antigua.py">
+    <entry file="file://$PROJECT_DIR$/P2_DM_red_neuronal-master/P2.Sergio_Blanco-Miguel_Muñiz.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="878">
-          <caret line="164" column="38" lean-forward="true" selection-start-line="164" selection-start-column="38" selection-end-line="164" selection-end-column="38" />
+        <state relative-caret-position="2720">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#164#6520#0" />
           </folding>
         </state>
       </provider>
@@ -227,5 +223,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/P2.JAVIER_GUILLAMON-MARINO_PEREZ.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/P2_Antigua.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2771">
+          <caret line="164" column="38" lean-forward="true" selection-start-line="164" selection-start-column="38" selection-end-line="164" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#181#6968#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/P2_DM_red_neuronal-master/P2.Sergio_Blanco-Miguel_Muñiz.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3366">
+          <caret line="199" column="18" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#164#6520#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/P2_DM_red_neuronal-master/P2.Sergio_Blanco-Miguel_Muñiz.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="212" column="20" lean-forward="true" selection-start-line="212" selection-start-column="20" selection-end-line="212" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#164#6520#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/P2.JAVIER_GUILLAMON-MARINO_PEREZ.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/P2_Antigua.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="537">
+          <caret line="207" column="89" lean-forward="true" selection-start-line="207" selection-start-column="89" selection-end-line="207" selection-end-column="89" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#181#6968#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

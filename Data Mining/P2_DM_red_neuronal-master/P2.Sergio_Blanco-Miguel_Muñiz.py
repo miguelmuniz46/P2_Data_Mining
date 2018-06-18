@@ -1,6 +1,6 @@
 import numpy as np
 import os
-#import tensorflow as tf
+import tensorflow as tf
 
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 #import tensorflow as tf
@@ -136,47 +136,59 @@ class DeepMLP(object):
             [100, 50, 20, 10] 100 neuronas de entrada, 50 de capa oculta 1, 50 de capa oculta 2 y 10 de salida
             [100, 50, 20, 50, 10] etc.
         """
-        aprendizaje=learning_rate
-        size=len(layers_size)
-        num_i=layers_size[0]
-        num_o=layers_size[-1]
-        num_h=np.array([])
+        self.layers_size = layers_size
+        self.learning_rate = learning_rate
 
-        for i in range(1,size,1):
-            num_h=np.append(num_h,layers_size[i])
+        self.x = tf.placeholder(tf.float32, [None, self.layers_size[
+            0]])  # Placeholder que almacenara una matriz[X,Y] que puede tener cualquier cantidad de valores en X, en Y tiene que tener tantos valores como se indiquen en la primera capa de layers_size
+        self.y = tf.placeholder(tf.float32, [None, self.layers_size[
+            -1]])  # Igual que el anterior, pero en Y almacena la cantidad de valores indicados en la ultima capa de layers_size
+        # Un placeholder es una variable a la que no se le asignaran datos en otro momento
+        self.w = []  # Lista que almacena todos los pesos de la red
+        self.b = []  # Lista que almacena todos los Bias de la red
+        for i in range(len(self.layers_size) - 1):
+            self.w.append(tf.Variable(2 * np.random.random((self.layers_size[i], self.layers_size[i + 1])) - 1,
+                                      dtype=tf.float32))  # inicializacion de los pesos con valores aleatorios de -1 a 1, se agrupan en matrices de tamaño nºnodosEntrada * nºnodosSalida
+            self.b.append(tf.Variable(2 * np.random.random((1, self.layers_size[i + 1])) - 1,
+                                      dtype=tf.float32))  # igual que los pesos pero en este caso solo se almacenan vectores de tamaño nºnodosSalida
 
-        # Asignamos los pesos aleatorios para las distintas capas
-        self.input_w = rand = np.random.uniform(-1, 1, size=num_i)
-        self.output_w = rand = np.random.uniform(-1, 1, size=num_o)
-        self.hide_w = rand = np.random.uniform(-1, 1, size=num_h)
+        # Feedfordward de la red
+        self.yHat = self.x
+        for i in range(len(self.layers_size) - 1):  # Se realiza la operacion tantas veces como capas haya
+            self.yHat = tf.matmul(self.yHat, self.w[i]) + self.b[i]  # salida de la capa = entrada*pesos+Bias
+        cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.y,
+                                                                               logits=self.yHat))  # Determina la perdida que tiene el modelo, nos dice como de ineficiente son las predicciones de la red, ademas le aplica directamente la funcion de activacion softmax
+        self.train_step = tf.train.GradientDescentOptimizer(self.learning_rate).minimize(
+            cross_entropy)  # Minimiza el crozz_entropy usando un descenso de gradiente
 
-        # Asignamos los pesos del bias de cada capa
-        self.bias_o = rand = np.random.uniform(-1, 1, size=num_o)
-        self.bias_h = rand = np.random.uniform(-1, 1, size=num_h)
+        self.sess = tf.InteractiveSession()  # Crea una sesion de Tensorflow
+        self.sess.run(tf.initialize_all_variables())  # inicializa todas la varibles creadas en tensorflow
+        # en mi caso estoy usando tf.initialize_all_variables() y aque estoy con la version 0.8 de TensorFlow, en una version mas actual se puede cambiar por tf.global_variables_initializer()
 
-    def fit(self, X, Y):
+    def fit(self, X):
         """
         X = entradas del conjunto de datos de entrenamiento, puede ser un batch o una sola tupla
         Y = salidas esperadas del conjunto de datos de entrenamiento, puede ser un batch o una sola tupla
         """
-
-        errorMAX = 1e-2
-        sumaEO = errorMAX
-        k = 0  # Variable que determinará cuantas iteracciones se han requerido para obtener el resultado
-        done = False
-
-        while not done:
-            if sumaEO < errorMAX:  # Condición de parada del entrenamiento de la red
-                done = True
-
-            else:
-                # Comienza el proceso de Feedfordward
-                sumaEO = 0
-
-                # Con este bucle se calcula por un lado  el sumatorio de todas las entradas de la neurona de la capa oculta por sus correspondientes pesos
-                # para calcular la función activación de esta neurona, que en este caso será la sigmoidal
-                for x, y in zip(self.X, self.Y):
-                    suma=0
+        porcentageAlcanzado = False  # bool que nos indica si se han alcanzado el % de acierto dado
+        i = 0  # Contador de iteraciones para evitar bucles infinitos
+        batchX, batchY = X.next_batch(
+            100)  # Se cogen un batch con 100 elementos aleatorios dentro de X y se dividen en datos de entrada batchX y datos esperados de salida batchY
+        self.score(batchX, batchY)  # Llama a la funcion score para inicializar las variables necesarias
+        while porcentageAlcanzado == False:
+            i += 1
+            if i % 100 == 0:  # cada 100 iteraciones se hace una actualizacion de la precision del entrenamiento
+                train_accuracy = self.accuracy.eval(
+                    feed_dict={self.x: batchX, self.y: batchY})  # Se evalua actualiza el valor de accuracy
+                print('step %d, training accuracy %g' % (i, train_accuracy))
+                if train_accuracy >= 0.98:  # Si la precision alcanza un valor dado paramos el entrenamiento
+                    porcentageAlcanzado = True
+            self.sess.run(self.train_step,
+                          feed_dict={self.x: batchX, self.y: batchY})  # Se actualiza el valor de train_step
+            if i >= 100000:  # En el caso de llegar a 100000 iteraciones se para el entrenamiento
+                porcentageAlcanzado = True
+            batchX, batchY = X.next_batch(100)  # Se coge el siguiente batch para usar en la siguiente iteracion
+        print("Iteraciones: %d" % i)
 
 
     def score(self, X, Y):
@@ -184,26 +196,26 @@ class DeepMLP(object):
         X = entradas del conjunto de datos de testeo, puede ser un batch o una sola tupla
         Y = salidas esperadas del conjunto de datos de testeo, puede ser un batch o una sola tupla
         """
-        pass
+        correct_prediction = tf.equal(tf.argmax(self.yHat, 1), tf.argmax(self.y,
+                                                                         1))  # Se determina si la predcicion realizada en yHat es correcta. yHat e Y son dos arrays de 10 elementos, cada elemento dentro del array determinala probabilidad de que el numero a predecir sea el indice del array es decir, [0,0,1] el resultado seria 2. argmax coge el valor mas grande dentro del array, por lo que se comparan el valor de yHat con mas probabilidad frente al valor real de y
+        self.accuracy = tf.reduce_mean(tf.cast(correct_prediction,
+                                               tf.float32))  # la prediccion se saca cogiendo el array de booleanos anterior, se castea a float para poder hacer la media, ek resultado nos determina cual es la probabilidad de acertar
+        self.a = self.sess.run(self.accuracy, feed_dict={self.x: X,
+                                                         self.y: Y})  # Se ejecuta accuracy dentro de Tensorflow con los valores de testeo X e Y
+        print('accuracy %g' % self.a)
 
 
 if __name__ == '__main__':
-    #from tensorflow.examples.tutorials.mnist import input_data
-    #mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-    #TODO MNIST TESTS
-    #t=DeepMLP([1,2,3,4,5],0.5)
+    from tensorflow.examples.tutorials.mnist import input_data
+    mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
+    # TODO MNIST TESTS
+    print("DeepMLP:")
+    dpml = DeepMLP([784, 500, 500, 2000, 30], 0.2)
+    X_train = mnist.train
+    dpml.fit(X_train)
+    X_test = mnist.test.images
+    Y_test = mnist.test.labels
+    dpml.score(X_test, Y_test)
 
-    # Pruebas para xorMLP
-    X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
-    Y = np.array([[0], [1], [1], [0]])
-
-    i = xorMLP(0.2)
-    i.fit()
-    for i in range(0, 4, 1):
-        x = np.array(X[i])
-        print("X:", x)
-        print("Y esperada:", Y[i])
-        res = int(i.predict(x))
-        print("Y calculada: ", res)
 
 

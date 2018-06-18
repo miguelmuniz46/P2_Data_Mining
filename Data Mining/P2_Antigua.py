@@ -1,11 +1,9 @@
 import numpy as np
 import os
+from tensorflow.examples.tutorials.mnist import input_data
+import tensorflow as tf
 
-# import tensorflow as tf
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-# import tensorflow as tf
-#np.random.seed(0)
-
 
 class xorMLP(object):
     def __init__(self, learning_rate=0.):
@@ -14,34 +12,35 @@ class xorMLP(object):
         self.Y = np.array([[0], [1], [1], [0]])
         self.bias = -1
 
-    def fit(self):
-        ###################################################### Capa oculta 1 ###########################################################################
+        ###################################################### Capa oculta 1 ################################################################
         rand = round(np.random.uniform(-1, 1), 5)
         rand2 = round(np.random.uniform(-1, 1), 5)
-        capaOculta1 = np.array([rand, rand2])
+        self.capaOculta1 = np.array([rand, rand2])
 
         rand = round(np.random.uniform(-1, 1), 5)
-        pesoBias_1_Oculta = np.array([rand])
-        biasCapaOculta1 = self.bias
+        self.pesoBias_1_Oculta = np.array([rand])
+        self.biasCapaOculta1 = self.bias
 
-        #################################################### Capa oculta 2 ######################################################################
+        #################################################### Capa oculta 2 ##################################################################
         rand = round(np.random.uniform(-1, 1), 5)
         rand2 = round(np.random.uniform(-1, 1), 5)
-        capaOculta2 = np.array([rand, rand2])
+        self.capaOculta2 = np.array([rand, rand2])
 
         rand = round(np.random.uniform(-1, 1), 5)
-        pesoBias_2_Oculta = np.array([rand])
-        biasCapaOculta2 = self.bias
+        self.pesoBias_2_Oculta = np.array([rand])
+        self.biasCapaOculta2 = self.bias
 
         ################################################### Capa salida #####################################################################
         rand = round(np.random.uniform(-1, 1), 5)
         rand2 = round(np.random.uniform(-1, 1), 5)
-        capaSalida = np.array([rand, rand2])
+        self.capaSalida = np.array([rand, rand2])
 
         rand = round(np.random.uniform(-1, 1), 5)
-        pesoBiasSalida = np.array([rand])
-        biasCapaSalida = self.bias
+        self.pesoBiasSalida = np.array([rand])
+        self.biasCapaSalida = self.bias
 
+
+    def fit(self):
         errorMAX = 0.10
         sumaEO = errorMAX
         k = 0
@@ -51,14 +50,14 @@ class xorMLP(object):
             if sumaEO < errorMAX or k == 1000000:
                 done = True
 
-                self.pesosH1 = np.array(capaOculta1)
-                self.pesoBiasH1 = np.array(pesoBias_1_Oculta)
+                self.pesosH1 = np.array(self.capaOculta1)
+                self.pesoBiasH1 = np.array(self.pesoBias_1_Oculta)
 
-                self.pesosH2 = np.array(capaOculta2)
-                self.pesoBiasH2 = np.array(pesoBias_2_Oculta)
+                self.pesosH2 = np.array(self.capaOculta2)
+                self.pesoBiasH2 = np.array(self.pesoBias_2_Oculta)
 
-                self.pesosO = np.array(capaSalida)
-                self.pesoBiasO = np.array(pesoBiasSalida)
+                self.pesosO = np.array(self.capaSalida)
+                self.pesoBiasO = np.array(self.pesoBiasSalida)
 
             else:
                 sumaEO = 0
@@ -66,57 +65,57 @@ class xorMLP(object):
                 for x, y in zip(self.X, self.Y):
 
                     ###################################### Funcion activacion para oculta 1 #############################################
-                    suma = biasCapaOculta1 * pesoBias_1_Oculta
+                    suma = self.biasCapaOculta1 * self.pesoBias_1_Oculta
                     for i in range(0, 2, 1):
-                        suma += ((x[i] * capaOculta1[i]))
+                        suma += ((x[i] * self.capaOculta1[i]))
 
                     funcionActivacionOculta1 = 1 / (1 + np.exp(-suma))
 
                     ###################################### Funcion activacion para oculta 2 #############################################
-                    suma = biasCapaOculta2 * pesoBias_2_Oculta
+                    suma = self.biasCapaOculta2 * self.pesoBias_2_Oculta
                     for i in range(0, 2, 1):
-                        suma += ((x[i] * capaOculta2[i]))
+                        suma += ((x[i] * self.capaOculta2[i]))
 
                     funcionActivacionOculta2 = 1 / (1 + np.exp(-suma))
 
-                    ###################################### Funcion activacion para salida #############################################
-                    suma = biasCapaSalida * pesoBiasSalida
-                    suma += capaSalida[0] * funcionActivacionOculta1
-                    suma += capaSalida[1] * funcionActivacionOculta2
+                    ###################################### Funcion activacion para salida ###############################################
+                    suma = self.biasCapaSalida * self.pesoBiasSalida
+                    suma += self.capaSalida[0] * funcionActivacionOculta1
+                    suma += self.capaSalida[1] * funcionActivacionOculta2
                     funcionActivacionSalida = 1 / (1 + np.exp(-suma))
 
-                    ###################################### Calculamos el error de salida ##############################################
+                    ###################################### Calculamos el error de salida ################################################
                     errorSalida = (funcionActivacionSalida * (1 - funcionActivacionSalida)) * (
                                 y[0] - funcionActivacionSalida)
 
                     sumaEO += abs(errorSalida)
 
-                    valorEntradaHO_1 = capaSalida[0]
-                    valorEntradaHO_2 = capaSalida[1]
+                    valorEntradaHO_1 = self.capaSalida[0]
+                    valorEntradaHO_2 = self.capaSalida[1]
 
-                    ##################################################incWho de la neurona oculta 1 ######################################################
-                    capaSalida[0] += self.aprendizaje * errorSalida * funcionActivacionOculta1
+                    ##################################################incWho de la neurona oculta 1 #####################################
+                    self.capaSalida[0] += self.aprendizaje * errorSalida * funcionActivacionOculta1
 
-                    ##################################################incWho de la neurona oculta 2 ######################################################
-                    capaSalida[1] += self.aprendizaje * errorSalida * funcionActivacionOculta2
+                    ##################################################incWho de la neurona oculta 2 #####################################
+                    self.capaSalida[1] += self.aprendizaje * errorSalida * funcionActivacionOculta2
 
-                    ################################################### error de la neurona oculta 1 #######################################################
+                    ################################################### error de la neurona oculta 1 ####################################
                     errorH_1 = (funcionActivacionOculta1 * (
                                 1 - funcionActivacionOculta1)) * errorSalida * valorEntradaHO_1
 
-                    ################################################### error de la neurona oculta 2 #######################################################
+                    ################################################### error de la neurona oculta 2 ####################################
                     errorH_2 = (funcionActivacionOculta2 * (
                                 1 - funcionActivacionOculta2)) * errorSalida * valorEntradaHO_2
 
-                    ################################################### incWih de la neurona oculta 1 ########################################################
-                    capaOculta1[0] += self.aprendizaje * errorH_1 * x[0]
-                    capaOculta1[1] += self.aprendizaje * errorH_1 * x[1]
-                    pesoBias_1_Oculta += self.aprendizaje * errorH_1 * biasCapaOculta1
+                    ################################################### incWih de la neurona oculta 1 ###################################
+                    self.capaOculta1[0] += self.aprendizaje * errorH_1 * x[0]
+                    self.capaOculta1[1] += self.aprendizaje * errorH_1 * x[1]
+                    self.pesoBias_1_Oculta += self.aprendizaje * errorH_1 * self.biasCapaOculta1
 
-                    ################################################### incWih de la neurona oculta 2 ########################################################
-                    capaOculta2[0] += self.aprendizaje * errorH_2 * x[0]
-                    capaOculta2[1] += self.aprendizaje * errorH_2 * x[1]
-                    pesoBias_2_Oculta += self.aprendizaje * errorH_2 * biasCapaOculta2
+                    ################################################### incWih de la neurona oculta 2 ###################################
+                    self.capaOculta2[0] += self.aprendizaje * errorH_2 * x[0]
+                    self.capaOculta2[1] += self.aprendizaje * errorH_2 * x[1]
+                    self.pesoBias_2_Oculta += self.aprendizaje * errorH_2 * self.biasCapaOculta2
 
                     k += 1
 
@@ -144,8 +143,7 @@ class xorMLP(object):
         suma += self.pesosO[1] * fActOculta2
         fActSalida = 1 / (1 + np.exp(-suma))
 
-        # Devolvemos el valor de salida estimado, redondeado hasta 3 decimales
-        # return round(fActSalida, 3)
+        # Devolvemos el valor de salida estimado
         return fActSalida
 
 
@@ -157,29 +155,67 @@ class DeepMLP(object):
             [100, 50, 20, 10] 100 neuronas de entrada, 50 de capa oculta 1, 50 de capa oculta 2 y 10 de salida
             [100, 50, 20, 50, 10] etc.
         """
-        pass
 
-    def fit(self, X, Y):
+        self.tamanio_capas = layers_size
+        self.aprendizaje = learning_rate
+
+        self.X = tf.placeholder(tf.float32, [None, self.tamanio_capas[0]])  # Placeholder que almacenara una matriz[X,Y] que puede tener cualquier cantidad de valores en X, en Y tiene que tener tantos valores como se indiquen en la primera capa de layers_size
+        self.Y = tf.placeholder(tf.float32, [None, self.tamanio_capas[-1]])  # Igual que el anterior, pero en Y almacena la cantidad de valores indicados en la ultima capa de layers_size
+        # Un placeholder es una variable a la que no se le asignaran datos en otro momento
+        self.pesosOculta = []  # Lista que almacena todos los pesos de la red
+        self.pesosBias = []  # Lista que almacena todos los Bias de la red
+
+        for i in range(len(self.tamanio_capas) - 1):
+            self.pesosOculta.append(tf.Variable(2 * np.random.random((self.tamanio_capas[i], self.tamanio_capas[i + 1])) - 1, dtype=tf.float32))  # inicializacion de los pesos con valores aleatorios de -1 a 1, se agrupan en matrices de tamaño nºnodosEntrada * nºnodosSalida
+            self.pesosBias.append(tf.Variable(2 * np.random.random((1, self.tamanio_capas[i + 1])) - 1, dtype=tf.float32))  # igual que los pesos pero en este caso solo se almacenan vectores de tamaño nºnodosSalida
+
+        self.sesion = tf.InteractiveSession()
+        self.sesion.run(tf.global_variables_initializer())
+
+
+    def fit(self, X):
         """
         X = entradas del conjunto de datos de entrenamiento, puede ser un batch o una sola tupla
         Y = salidas esperadas del conjunto de datos de entrenamiento, puede ser un batch o una sola tupla
         """
-        pass
+        self.y = self.X
+        for i in range(len(self.tamanio_capas) - 1):
+            self.y = tf.matmul(self.y, self.pesosOculta[i]) + (self.pesosBias[i] * 1)
+
+        cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(labels=self.Y, logits=self.y))
+        self.minimizar = tf.train.GradientDescentOptimizer(self.aprendizaje).minimize(cross_entropy)
+
+        done = False
+        k = 0
+        batchX, batchY = X.next_batch(100)
+        self.score(batchX, batchY)
+        while done == False:
+            k += 1
+            if k % 100 == 0:  # cada 100 iteraciones se hace una actualizacion de la precision del entrenamiento
+                train_accuracy = self.accuracy.eval(feed_dict={self.X: batchX, self.Y: batchY})
+                print("Iteraciones: %d, Actual Training accuracy %g" % (k, train_accuracy))
+                if ((1 - train_accuracy) <= 0.02):
+                    done = True
+            self.sesion.run(self.minimizar, feed_dict={self.X: batchX, self.Y: batchY})
+            if k >= 100000:
+                done = True
+            batchX, batchY = X.next_batch(100)
+        print("Iteraciones totales: %d, Final Training accuracy %g" % (k,  train_accuracy))
+
 
     def score(self, X, Y):
         """
         X = entradas del conjunto de datos de testeo, puede ser un batch o una sola tupla
         Y = salidas esperadas del conjunto de datos de testeo, puede ser un batch o una sola tupla
         """
-        pass
+        correct_prediction = tf.equal(tf.argmax(self.y, 1), tf.argmax(self.Y, 1))
+        self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+        self.a = self.sesion.run(self.accuracy, feed_dict={self.X: X, self.Y: Y})
+        print('Accuracy %g' % self.a)
 
 
 if __name__ == '__main__':
-    #from tensorflow.examples.tutorials.mnist import input_data
-
-    #mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-
-    # TODO MNIST TESTS
+    mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
 # Pruebas para xorMLP
     X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
@@ -194,4 +230,13 @@ if __name__ == '__main__':
         print("Y:", Y[i])
         res = red.predict(x)
         print("Y de la red: ", res)
-        print("Y esperada: " , round(res[0], 0))
+        print("Y esperada: ", round(res[0], 0))
+
+    # TODO MNIST TESTS
+    print("\n")
+    deepmlp = DeepMLP([784, 10, 10, 10], 0.2)
+    X_train = mnist.train
+    deepmlp.fit(X_train)
+    X_test = mnist.test.images
+    Y_test = mnist.test.labels
+    deepmlp.score(X_test, Y_test)
